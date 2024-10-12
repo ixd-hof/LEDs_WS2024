@@ -50,3 +50,5 @@ void loop() {
 for (int i=0; i<NUMPIXELS; i++ {
   pixels.setPixelColor(i, 255, 0, 100);
 }
+
+*/

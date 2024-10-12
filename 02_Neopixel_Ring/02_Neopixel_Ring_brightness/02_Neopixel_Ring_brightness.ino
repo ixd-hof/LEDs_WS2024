@@ -17,17 +17,19 @@ void loop() {
   pixels.clear();
 
   pixels.setBrightness(b);  // set current value of b to brightness
-  for (int i=0; i<NUMPIXELS; i++ {
+  for (int i=0; i<NUMPIXELS; i++) {
     pixels.setPixelColor(i, 255, 0, 100); // set color
   }
 
   pixels.show();            // without show there will be no update
 
-  if (b < 255)              // if brightness b is lower than 255
+  if (b < 100) {            // if brightness b is lower than 100 %
     b += 1;                 // increase brightness by one
-  //else                    // if 255 then set to 0 and start again
-  //  b = 0;
-
-  delay(200);               // set speed / slowdown
+  }
+  else {                    // if 255 then set to 0 and start again
+    b = 0;
+    //delay(1000);          // wait a second after full brightness
+  }
+  //delay(200);               // set speed / slowdown increase
 
 }

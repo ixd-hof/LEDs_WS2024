@@ -16,9 +16,12 @@ int current_pixel = 0;
 void loop() {
   pixels.clear();
 
-  for (int i=0; i<NUMPIXELS; i++ {
-    if (i == current_pixel)
+  for (int i=0; i<NUMPIXELS; i++) {
+    if (i == current_pixel) {
         pixels.setPixelColor(i, 255, 0, 100);  // set only current pixel's color
+    }
+    else {
+      pixels.setPixelColor(i, 0, 0, 0);       // set other pixels to black
     }
   }
 
