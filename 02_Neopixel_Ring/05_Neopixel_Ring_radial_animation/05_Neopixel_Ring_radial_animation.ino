@@ -1,6 +1,6 @@
 #include <seesaw_neopixel.h>
 
-#define NUMPIXELS 24      // number of neopixels
+#define NUMPIXELS 12      // number of neopixels
 #define PIN_NEODRIVER 15  // Neodriver pin
 
 seesaw_NeoPixel pixels = seesaw_NeoPixel(NUMPIXELS, PIN_NEODRIVER, NEO_GRBW + NEO_KHZ800);
@@ -16,6 +16,9 @@ int current_pixel = 0;
 void loop() {
   pixels.clear();
 
+  float s = sin(millis() / 1000.0) * 1000.0;
+  float current_pixel = map(s, -1000, 1000, 0, NUMPIXELS);
+
   for (int i=0; i<NUMPIXELS; i++) {
     if (i == current_pixel) {
         pixels.setPixelColor(i, 255, 0, 100);  // set only current pixel's color
@@ -25,14 +28,9 @@ void loop() {
     }
   }
 
-  if (current_pixel < NUMPIXELS) // if smaller than 24 -> increase by one
-    current_pixel += 1;
-  else
-    current_pixel = 0;
-
   pixels.show();            // without show there will be no update
 
-  delay(200);               // set speed / slowdown
+  //delay(200);               // set speed / slowdown
 
 }
 
