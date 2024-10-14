@@ -1,7 +1,7 @@
 #include <Adafruit_NeoPixel.h>
 
 #define NUMPIXELS        1  // number of neopixels (single)
-#define PIN_NEOPIXEL     6  // for emulator or Pico
+//#define PIN_NEOPIXEL     6  // for emulator or Pico
 
 Adafruit_NeoPixel pixels(NUMPIXELS, PIN_NEOPIXEL, NEO_GRB + NEO_KHZ800);
 
