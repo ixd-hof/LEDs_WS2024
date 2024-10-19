@@ -9,6 +9,7 @@
 
 seesaw_NeoPixel pixels = seesaw_NeoPixel(NUMPIXELS, PIN_NEODRIVER, NEO_GRB + NEO_KHZ800);
 GFXcanvas16 canvas = GFXcanvas16(WIDTH, HEIGHT);
+String type = "zigzag"; // matrix type (8x8 progressive or 32x8 zigzag)
 
 #define AQUA 0x07FF
 #define DEEPPINK 0xF8B2
@@ -23,6 +24,7 @@ void setup() {
   pixels.show();
   delay(1000);
 
+  
   // draw on canvas
   canvas.startWrite();
   canvas.fillCircle(2, 2, 2, Color(0, 0, 255)); // magenta filled circle
@@ -46,8 +48,16 @@ void drawCanvas() {
   for (int y = 0; y < HEIGHT; y++) {
     for (int x = 0; x < WIDTH; x++) {
       uint16_t px = canvas.getPixel(x, y);
-      //Serial.println(px, HEX);
-      pixels.setPixelColor(x + WIDTH * y, (uint16_t)px >> 10, (uint8_t)px >> 5, px);
+      uint16_t pos;
+      if (type == "progressive")
+        pos = x + WIDTH * y;
+      else {
+        if (y%2 == 0)
+          pos = (WIDTH-1 - x) + WIDTH * y;
+        else
+          pos = x + WIDTH * y;
+      }
+      pixels.setPixelColor(pos, (uint16_t)px >> 10, (uint8_t)px >> 5, px);
     }
   }
 }

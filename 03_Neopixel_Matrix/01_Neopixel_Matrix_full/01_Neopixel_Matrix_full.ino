@@ -17,8 +17,8 @@ void loop() {
 
   for (int i=0; i<NUMPIXELS; i++) {
     pixels.setPixelColor(i, 255, 0, 100);
-    // pixels.show();           // uncomment for incrementing light-up (otherwise all at once)
-    // delay(200);              // speed / delay of incremental light-up
+    pixels.show();           // uncomment for incrementing light-up (otherwise all at once)
+    delay(200);              // speed / delay of incremental light-up
   }
 
   pixels.show();                // without show there will be no update

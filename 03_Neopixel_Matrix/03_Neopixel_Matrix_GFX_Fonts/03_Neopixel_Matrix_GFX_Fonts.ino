@@ -11,10 +11,11 @@
 
 seesaw_NeoPixel pixels = seesaw_NeoPixel(NUMPIXELS, PIN_NEODRIVER, NEO_GRB + NEO_KHZ800);
 GFXcanvas16 canvas = GFXcanvas16(WIDTH, HEIGHT);
+String type = "zigzag";  // matrix type (8x8 progressive or 32x8 zigzag)
 
 #define AQUA 0x07FF
 #define DEEPPINK 0xF8B2
-#define TOMATO 0xFB08 
+#define TOMATO 0xFB08
 
 void setup() {
   Serial.begin();
@@ -35,6 +36,7 @@ void setup() {
   canvas.setTextColor(Color(255, 0, 0));
   //canvas.setTextSize(1);
   canvas.print("Hi");
+  //canvas.fillRect(0, 0, 2, 8, Color(255, 70, 0));
 
   canvas.endWrite();
 
@@ -46,7 +48,6 @@ void setup() {
 }
 
 void loop() {
-
 }
 
 
@@ -56,16 +57,23 @@ void drawCanvas() {
   for (int y = 0; y < HEIGHT; y++) {
     for (int x = 0; x < WIDTH; x++) {
       uint16_t px = canvas.getPixel(x, y);
-      //Serial.println(px, HEX);
-      pixels.setPixelColor(x + WIDTH * y, (uint16_t)px >> 10, (uint8_t)px >> 5, px);
+      uint16_t pos;
+      if (type == "progressive")
+        pos = x + WIDTH * y;
+      else {
+        if (y%2 == 0)
+          pos = (WIDTH-1 - x) + WIDTH * y;
+        else
+          pos = x + WIDTH * y;
+      }
+      pixels.setPixelColor(pos, (uint16_t)px >> 10, (uint8_t)px >> 5, px);
     }
   }
 }
 
-uint16_t Color(uint8_t red, uint8_t green, uint8_t blue)
-{
-  red   >>= 3;
+uint16_t Color(uint8_t red, uint8_t green, uint8_t blue) {
+  red >>= 3;
   green >>= 2;
-  blue  >>= 3;
+  blue >>= 3;
   return (red << 11) | (green << 5) | blue;
 }
