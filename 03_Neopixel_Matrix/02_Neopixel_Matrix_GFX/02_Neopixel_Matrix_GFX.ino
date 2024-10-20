@@ -27,7 +27,7 @@ void setup() {
   
   // draw on canvas
   canvas.startWrite();
-  canvas.fillCircle(2, 2, 2, Color(0, 0, 255)); // magenta filled circle
+  canvas.fillCircle(2, 2, 2, Color(0, 0, 255)); // blue filled circle
   canvas.drawRect(1, 1, 6, 6, Color(255, 70, 0)); // orange rect
   canvas.drawLine(0, 0, 7, 7, Color(0, 0, 255));  // blue diagonal line
   canvas.endWrite();
@@ -57,8 +57,7 @@ void drawCanvas() {
         else
           pos = x + WIDTH * y;
       }
-      pixels.setPixelColor(pos, (uint16_t)px >> 10, (uint8_t)px >> 5, px);
-    }
+      pixels.setPixelColor(pos, ((px >> 11) & 0x1F), ((px >> 5) & 0x3F), (px & 0x1F));    }
   }
 }
 

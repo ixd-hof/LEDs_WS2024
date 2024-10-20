@@ -71,7 +71,7 @@ void drawCanvas() {
         else
           pos = x + WIDTH * y;
       }
-      pixels.setPixelColor(pos, (uint16_t)px >> 10, (uint8_t)px >> 5, px);
+      pixels.setPixelColor(pos, ((px >> 11) & 0x1F), ((px >> 5) & 0x3F), (px & 0x1F));
     }
   }
 }

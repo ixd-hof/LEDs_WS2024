@@ -5,7 +5,7 @@
 #include <Fonts/Picopixel.h>
 
 #define WIDTH 8
-#define HEIGHT 8
+#define HEIGHT 32
 #define NUMPIXELS WIDTH* HEIGHT  // number of neopixels
 #define PIN_NEODRIVER 15         // Neodriver pin
 
@@ -28,6 +28,8 @@ void setup() {
 
   // draw on canvas
   canvas.startWrite();
+  canvas.fillRect(0, 0, WIDTH, HEIGHT, DEEPPINK);
+  //canvas.setRotation(3);
 
   //canvas.drawChar(0, 0, 'A', Color(255, 0, 0), Color(255, 0, 0), 1);  // write one character in red w/o bg
 
@@ -66,7 +68,7 @@ void drawCanvas() {
         else
           pos = x + WIDTH * y;
       }
-      pixels.setPixelColor(pos, (uint16_t)px >> 10, (uint8_t)px >> 5, px);
+      pixels.setPixelColor(pos, ((px >> 11) & 0x1F), ((px >> 5) & 0x3F), (px & 0x1F));
     }
   }
 }
