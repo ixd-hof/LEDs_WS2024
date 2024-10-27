@@ -1,6 +1,6 @@
 #include <seesaw_neopixel.h>
 
-#define NUMPIXELS 24      // number of neopixels
+#define NUMPIXELS 64 // 24      // number of neopixels
 #define PIN_NEODRIVER 15  // Neodriver pin
 
 //seesaw_NeoPixel pixels = seesaw_NeoPixel(NUMPIXELS, PIN_NEODRIVER, NEO_GRBW + NEO_KHZ800);

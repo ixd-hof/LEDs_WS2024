@@ -1,11 +1,13 @@
 #include <seesaw_neopixel.h>
 #include <Adafruit_GFX.h>
 #include <gfxfont.h>
-
-#include <Fonts/Picopixel.h>
+#include "bitmap.h"
+#include "bitmap2.h"
+#include "pattern_arrow.h"
+// Convert bitmaps here: https://notisrac.github.io/FileToCArray/
 
 #define WIDTH 8
-#define HEIGHT 8
+#define HEIGHT 32
 #define NUMPIXELS WIDTH* HEIGHT  // number of neopixels
 #define PIN_NEODRIVER 15         // Neodriver pin
 
@@ -26,23 +28,14 @@ void setup() {
   pixels.show();
   delay(1000);
 
+
   // draw on canvas
   canvas.startWrite();
-  //canvas.fillRect(0, 0, WIDTH, HEIGHT, DEEPPINK);
-  //canvas.setRotation(3);
-
-  //canvas.drawChar(0, 0, 'A', Color(255, 0, 0), Color(255, 0, 0), 1);  // write one character in red w/o bg
-
-  canvas.setFont(&Picopixel);
-  canvas.setCursor(1, 5);
-  canvas.setTextColor(Color(255, 0, 0));
-  //canvas.setTextSize(1);
-  canvas.print("Hi");
-  //canvas.fillRect(0, 0, 2, 8, Color(255, 70, 0));
-
+  canvas.fillScreen(Color(0, 0, 0));
+  //canvas.drawGrayscaleBitmap(0, 0, MattSmith_32x8, 8, 32);
+  //canvas.drawGrayscaleBitmap(0, 0, Pattern, 8, 32);
+  canvas.drawRGBBitmap(0, 0, pattern_arrow, 8, 8);
   canvas.endWrite();
-
-
   // write canvas to matrix
   drawCanvas();
 
@@ -60,13 +53,11 @@ void drawCanvas() {
     for (int x = 0; x < WIDTH; x++) {
       uint16_t px = canvas.getPixel(x, y);
       uint16_t pos;
-      if (type == "progressive") {
+      if (type == "progressive")
         pos = x + WIDTH * y;
-        //pos = HEIGHT - y + WIDTH * x;
-      }
       else {
-        if (y%2 == 0)
-          pos = (WIDTH-1 - x) + WIDTH * y;
+        if (y % 2 == 0)
+          pos = (WIDTH - 1 - x) + WIDTH * y;
         else
           pos = x + WIDTH * y;
       }
