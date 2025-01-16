@@ -1,5 +1,6 @@
 #include <Adafruit_NeoPixel.h>
 
+// https://wiki.dfrobot.com/Gravity__Analog_Sound_Level_Meter_SKU_SEN0232
 #define SoundSensorPin A1  //this pin read the analog voltage from the sound level meter
 #define VREF  5.0  //voltage on AREF pin,default:operating voltage
 
